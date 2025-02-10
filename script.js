@@ -1,35 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    
-    document.querySelectorAll(".add-to-cart").forEach(button => {
-        button.addEventListener("click", function() {
-            const name = this.getAttribute("data-name");
-            const price = parseInt(this.getAttribute("data-price"));
+    const totalAmount = localStorage.getItem("totalAmount") || "0";
+    document.getElementById("amount").textContent = totalAmount;
 
-            cart.push({ name, price });
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            alert(name + " added to cart!");
-        });
+    const upiID = "upi://pay?pa=yourupi@upi&pn=Your Name&am=" + totalAmount + "&cu=INR";
+    new QRCode(document.getElementById("qrcode"), {
+        text: upiID,
+        width: 200,
+        height: 200
     });
 
-    if (document.getElementById("cart-items")) {
-        let cartItemsContainer = document.getElementById("cart-items");
-        let totalPrice = 0;
+    localStorage.removeItem("cart");  // Clear cart after payment
 
-        cart.forEach((item, index) => {
-            let itemDiv = document.createElement("div");
-            itemDiv.textContent = `${item.name} - ₹${item.price}`;
-            cartItemsContainer.appendChild(itemDiv);
-            totalPrice += item.price;
-        });
-
-        document.getElementById("total-price").textContent = totalPrice;
-    }
-
-    document.getElementById("checkout")?.addEventListener("click", function() {
-        alert("Proceeding to payment...");
-        localStorage.removeItem("cart");
+    setTimeout(() => {
+        alert("Payment successful! Thank you for your purchase.");
         window.location.href = "index.html";
-    });
+    }, 30000); // Simulate payment success after 30 seconds
 });
