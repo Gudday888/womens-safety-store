@@ -35,6 +35,24 @@
         }
 
         document.addEventListener("DOMContentLoaded", loadCart);
+        emailjs.init("your-public-key");  // Replace with your EmailJS Public Key
+});
+
+function sendOrderEmail(name, email, totalAmount) {
+    const templateParams = {
+        user_name: name,
+        user_email: email,
+        total_amount: totalAmount
+    };
+
+    emailjs.send("your-service-id", "your-template-id", templateParams)
+        .then(response => {
+            alert("Order confirmation email sent successfully!");
+        })
+        .catch(error => {
+            alert("Error sending email. Please check EmailJS settings.");
+        });
+}
     </script>
 </body>
 </html>
