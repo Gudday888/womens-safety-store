@@ -3,15 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Shopping Cart - Women's Safety</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Your Cart</h1>
+    <h1>Your Shopping Cart</h1>
+
     <div id="cart-items"></div>
-    <h2>Total: ₹<span id="total-price">0</span></h2>
-    <button id="checkout">Proceed to Checkout</button>
-    
-    <script src="script.js"></script>
+    <p><strong>Total:</strong> ₹<span id="total-price">0</span></p>
+
+    <a href="payment.html" class="btn" onclick="saveTotal()">Proceed to Payment</a>
+
+    <script>
+        function saveTotal() {
+            const total = document.getElementById("total-price").textContent;
+            localStorage.setItem("totalAmount", total);
+        }
+
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartItems = document.getElementById("cart-items");
+            let totalPrice = 0;
+
+            cartItems.innerHTML = "";
+            cart.forEach(item => {
+                totalPrice += item.price;
+                cartItems.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
+            });
+
+            document.getElementById("total-price").textContent = totalPrice;
+        }
+
+        document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
 </body>
 </html>
