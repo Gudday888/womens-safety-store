@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff0080, #ff8c00);
+    color: white;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.product-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.product {
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.btn {
+    display: inline-block;
+    background: #ff0080;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+}
